@@ -1,4 +1,4 @@
-First community preview of **G7 Pro Xbox Wireless**, a standalone app separate from the G7 Pro Pairing utility.
+Community preview v0.1.1 of **G7 Pro Xbox Wireless**, a standalone app separate from the G7 Pro Pairing utility.
 
 The underlying conversion method succeeded on one standard G7 Pro receiver running firmware 1.46: after installing Wuchang dongle 5.12, the existing controller reconnected and worked wirelessly on Xbox Series S **without changing controller firmware**.
 
@@ -11,3 +11,5 @@ Download `G7ProXboxWireless-0.1.0-win-x64.zip`, extract it, and read the include
 Build validation: 40 offline checks. The real official package also passed three optional integration checks and the C#-prepared updater opened successfully with the expected firmware CRCs, without starting another installation.
 
 Source is in the repository and source ZIP; SHA-256 checksums accompany the downloads.
+
+This patch keeps Restart as administrator available after loading a saved backup. After an administrator restart, select the firmware and load the backup again.

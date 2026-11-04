@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 — community preview
+
+- Keep Restart as administrator available after loading a saved backup. Restarting requires selecting the firmware and loading the backup again; no partial conversion state is carried across processes.
+
 ## 0.1.0 — community preview
 
 - Separate Windows app for the tested standard G7 Pro receiver 1.46 to Wuchang dongle 5.12 conversion.

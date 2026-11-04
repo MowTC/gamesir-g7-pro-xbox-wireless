@@ -4,7 +4,7 @@ A separate, open-source Windows app that helps convert a **supported standard Ga
 
 **Hardware result:** one standard receiver on firmware **1.46** was backed up, converted to Wuchang **5.12**, and tested successfully for wireless input on **Xbox Series S**. The standard controller reconnected after a receiver cold boot; **its firmware was not changed**. Other receiver revisions, Xbox models, audio features, and long-term compatibility are unverified.
 
-**[Download v0.1.0 for Windows x64](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/releases/download/v0.1.0/G7ProXboxWireless-0.1.0-win-x64.zip)** · [Releases and checksums](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/releases/tag/v0.1.0) · [How the conversion works](docs/PROTOCOL.md)
+**[Download v0.1.1 for Windows x64](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/releases/download/v0.1.1/G7ProXboxWireless-0.1.1-win-x64.zip)** · [Releases and checksums](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/releases/tag/v0.1.1) · [How the conversion works](docs/PROTOCOL.md)
 
 This is a **preview**. The conversion method was tested on real hardware using the research implementation. The packaged app has automated tests and offline verification against the actual vendor package; a full conversion through this new interface has not been repeated on a stock receiver. Firmware conversion can make a receiver unusable. The required backup captures SPI flash, but restoration has not been tested and no restore operation is included.
 

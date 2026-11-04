@@ -19,9 +19,9 @@ try {
     if ($Package) {
         New-Item -ItemType Directory -Force dist | Out-Null
         $release = @('bin\G7ProXboxWireless.exe', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'CHANGELOG.md')
-        Compress-Archive -LiteralPath $release -DestinationPath dist\G7ProXboxWireless-0.1.0-win-x64.zip -Force
+        Compress-Archive -LiteralPath $release -DestinationPath dist\G7ProXboxWireless-0.1.1-win-x64.zip -Force
         $source = @('src', 'tests', 'docs', '.github', 'build.ps1', 'G7ProXboxWireless.csproj', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'CHANGELOG.md', '.gitignore')
-        Compress-Archive -LiteralPath $source -DestinationPath dist\G7ProXboxWireless-0.1.0-source.zip -Force
+        Compress-Archive -LiteralPath $source -DestinationPath dist\G7ProXboxWireless-0.1.1-source.zip -Force
         Get-FileHash dist\*.zip -Algorithm SHA256 | ForEach-Object { $_.Hash.ToLowerInvariant() + '  ' + (Split-Path $_.Path -Leaf) } | Set-Content dist\SHA256SUMS.txt
     }
 } finally { Pop-Location }

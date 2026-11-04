@@ -16,8 +16,8 @@ using Microsoft.Win32;
 
 [assembly: AssemblyTitle("G7 Pro Xbox Wireless")]
 [assembly: AssemblyDescription("Independent community firmware conversion assistant for supported GameSir G7 Pro receivers")]
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.1.1.0")]
+[assembly: AssemblyFileVersion("0.1.1.0")]
 
 namespace G7ProXboxWireless
 {
@@ -69,7 +69,7 @@ namespace G7ProXboxWireless
             Find<Button>("ChooseFirmware").IsEnabled=!busy && !launched;
             Find<Button>("Scan").IsEnabled=!busy && !scanning;
             Find<Button>("Elevate").Visibility=Admin?Visibility.Collapsed:Visibility.Visible;
-            Find<Button>("Elevate").IsEnabled=!busy && backup==null && !launched;
+            Find<Button>("Elevate").IsEnabled=!busy && !launched;
             Find<Button>("Launch").IsEnabled=!busy && !scanning && !launched && firmware!=null && backup!=null && cycled && Find<CheckBox>("Acknowledge").IsChecked==true && Match(Devices.SelectedItem as Receiver);
         }
         private bool Match(Receiver r) { return r!=null && backup!=null && r.PnpId==backup.DiskPnpId && r.UsbId==backup.UsbId; }
