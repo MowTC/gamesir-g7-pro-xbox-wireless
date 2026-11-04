@@ -1,0 +1,15 @@
+bin/
+dist/
+.vs/
+obj/
+data/
+backups/
+cache/
+prepared/
+*.bin
+*.ufw
+*.pcapng
+*.rar
+*.exe
+*.log
+*.user
