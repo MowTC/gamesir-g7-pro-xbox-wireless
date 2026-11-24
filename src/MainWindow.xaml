@@ -8,10 +8,10 @@
   <Style x:Key="Step" TargetType="TextBlock"><Setter Property="FontSize" Value="17"/><Setter Property="FontWeight" Value="SemiBold"/><Setter Property="Margin" Value="0,0,0,12"/></Style>
  </Window.Resources>
  <ScrollViewer VerticalScrollBarVisibility="Auto"><StackPanel Margin="30,24,30,24">
-  <DockPanel Margin="0,0,0,6"><TextBlock Text="G7 PRO / COMMUNITY TOOLS" Foreground="#78DCC2" FontWeight="SemiBold"/><TextBlock Text="v0.1.1 · Preview" Foreground="#ABBBD2" HorizontalAlignment="Right"/></DockPanel>
+  <DockPanel Margin="0,0,0,6"><TextBlock Text="G7 PRO / COMMUNITY TOOLS" Foreground="#78DCC2" FontWeight="SemiBold"/><TextBlock Text="v0.1.2 · Preview" Foreground="#ABBBD2" HorizontalAlignment="Right"/></DockPanel>
   <TextBlock Text="Xbox Wireless" FontSize="36" FontWeight="SemiBold" LineHeight="46"/>
   <TextBlock Style="{StaticResource Muted}" Margin="0,3,0,18" Text="Convert a supported standard G7 Pro receiver using Wuchang dongle firmware. Separate from the pairing utility. Independent project; not affiliated with GameSir or Xbox."/>
-  <Border Background="#2C2820" CornerRadius="10" Padding="15" Margin="0,0,0,18"><TextBlock Foreground="#F2D7A5" Text="Tested on one standard receiver: firmware 1.46 → Wuchang 5.12, with wireless input on Xbox Series S. Other hardware is unverified. A backup is required, but restoration is not tested or included."/></Border>
+  <Border Background="#2C2820" CornerRadius="10" Padding="15" Margin="0,0,0,18"><TextBlock Foreground="#F2D7A5" Text="Reported working: stock 1.46 on Xbox Series S; stock 1.47 on Series X (community test by baptisteba). Both use Wuchang dongle 5.12. Other hardware is unverified. A backup is required, but restoration is not tested or included."/></Border>
   <Border Style="{StaticResource Card}"><StackPanel>
    <TextBlock Style="{StaticResource Step}" Text="01   Bring the official firmware"/>
    <TextBlock Style="{StaticResource Muted}" Text="Download GameSir’s Wuchang firmware package and extract it. Select the original “G7 Pro WFF Dongle 5.12 Flash Tool - PID Protected.exe”. Controller firmware is not needed." Margin="0,0,0,12"/>

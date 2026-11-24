@@ -4,7 +4,11 @@
 
 On November 3, 2026, a standard G7 Pro receiver running `JS_3103_DG` 1.46 was read twice in full. Each SPI NOR dump was 524,288 bytes and matched byte for byte. Its header and application parsed successfully. The official Wuchang dongle 5.12 updater detected the standard receiver but refused the differing product identifier. A locally prepared updater changed `PidMatch/enable` from true to false while preserving both UFW payloads byte for byte. Installation completed with green `Upgrade SUCCESS`, product `JS_3103_U_DG`, version 5.12, and CRC `4938-FD1F1A2B`.
 
-The existing standard controller reconnected wirelessly after a receiver cold boot without a controller firmware update. The owner then confirmed wireless dashboard/controller operation on Xbox Series S with no controller USB cable. This is evidence for one physical hardware combination. Xbox authentication internals, other receiver revisions, audio, and long-term behavior were not established.
+The existing standard controller reconnected wirelessly after a receiver cold boot without a controller firmware update. The owner then confirmed wireless dashboard/controller operation on Xbox Series S with no controller USB cable.
+
+On November 24, 2026, **[baptisteba](https://github.com/baptisteba)** provided a [second hardware report, issue #1](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/issues/1): a standard Shadow Ember G7 Pro receiver running `JS_3103_DG` **1.47**, with the same 512 KiB flash and JEDEC `856013`, converted to Wuchang **5.12** and worked wirelessly on **Xbox Series X**, including after controller and console power cycles. Their app was v0.1.1 built from source with the stock-version check extended to allow 1.47. They report matching two-pass backups, vendor `Upgrade SUCCESS` with CRC `4938-FD1F1A2B`, and reconnection without controller flashing or re-pairing. Thank you, baptisteba, for testing and documenting this configuration.
+
+Version 0.1.2 adds 1.47 to the explicit supported-version list based on that community report. The maintainer has not independently repeated the 1.47 hardware test. Xbox authentication internals, other receiver versions, audio, and long-term behavior remain unverified. The report's additional observations about encryption variants, reserved areas, and polling rates have not been independently established here and are not prerequisites added by this release.
 
 Independent post-flash raw readback was attempted using the vendor's resident loader. It returned a different reply format from the public backup loader, so the readback stopped without producing a post-flash dump. Do not interpret vendor CRC success as independent verification that every reserved byte was preserved. No restoration experiment has been performed.
 
@@ -33,7 +37,7 @@ The app saves and flushes both complete reads, compares them byte for byte, vali
 
 ## Firmware identity
 
-The JieLi ENC scrambling routine XORs each header byte with the low byte of a 16-bit key, then shifts the key left and conditionally XORs `0x1021`; initial key `FFFF`. The 32-byte flash header must pass CRC16 before its plaintext version/product fields are used. This release requires a header at `0x1000`, flash limit `0x7FF00`, filesystem version 2, block alignment 1, product `JS_3103_DG`, version `1.46`.
+The JieLi ENC scrambling routine XORs each header byte with the low byte of a 16-bit key, then shifts the key left and conditionally XORs `0x1021`; initial key `FFFF`. The 32-byte flash header must pass CRC16 before its plaintext version/product fields are used. This release requires a header at `0x1000`, flash limit `0x7FF00`, filesystem version 2, block alignment 1, product `JS_3103_DG`, and version **`1.46` or `1.47`**. This is an explicit allowlist, not a minimum-version rule; untested versions such as `1.53` remain blocked.
 
 ## Updater preparation
 

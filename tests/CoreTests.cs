@@ -54,6 +54,9 @@ internal static class CoreTests
             write=Cdb(0xfb06,0x14b00,512);write[8]=0;Bytes.Put16(write,9,Bytes.Crc16(block));Reject(()=>BackupLink.Guard(write,0,block,true,false),"Block RAM writes beyond reader region");
             Reject(()=>BackupLink.Guard(Cdb(0xfb08,0x12000,0),16,null,true,false),"Block wrong RAM entry argument");
             byte[] image=Image("JS_3103_DG","1.46");var id=FirmwareIdentity.Parse(image);Check(id.Product=="JS_3103_DG" && id.Version=="1.46" && id.Base==0x1000,"Parse stock firmware metadata and CRC");id.RequireStock();Check(true,"Accept tested stock configuration");
+            byte[] image147=Image("JS_3103_DG","1.47");FirmwareIdentity.Parse(image147).RequireStock();Check(true,"Accept community-tested stock firmware 1.47");
+            Reject(()=>FirmwareIdentity.Parse(Image("JS_3103_DG","1.53")).RequireStock(),"Block untested stock firmware 1.53");
+            Reject(()=>FirmwareIdentity.Parse(Image("JS_3103_DV","1.47")).RequireStock(),"Firmware 1.47 does not bypass the receiver product check");
             Reject(()=>FirmwareIdentity.Parse(Image("JS_3103_U_DG","5.12")).RequireStock(),"Block already-converted receiver");Reject(()=>FirmwareIdentity.Parse(Image("JS_3103_DG","1.35")).RequireStock(),"Block untested stock version");Reject(()=>FirmwareIdentity.Parse(new byte[0x80000]),"Reject blank flash");
             corrupt=(byte[])image.Clone();corrupt[0x1008]^=1;Reject(()=>FirmwareIdentity.Parse(corrupt),"Reject corrupt firmware header");
             File.WriteAllBytes(Path.Combine(temp,"flash-pass-1.bin"),image);File.WriteAllBytes(Path.Combine(temp,"flash-pass-2.bin"),image);
@@ -61,6 +64,9 @@ internal static class CoreTests
             string manifest=Path.Combine(temp,"manifest.json");backup.Save(manifest);Check(BackupRecord.Load(manifest).Sha256==backup.Sha256,"Reload and verify durable backup pair");
             corrupt=(byte[])image.Clone();corrupt[0x5000]^=1;File.WriteAllBytes(Path.Combine(temp,"flash-pass-2.bin"),corrupt);Reject(()=>BackupRecord.Load(manifest),"Reject mismatching backup copies");
             File.WriteAllBytes(Path.Combine(temp,"flash-pass-2.bin"),new byte[10]);Reject(()=>BackupRecord.Load(manifest),"Reject truncated backup");
+            File.WriteAllBytes(Path.Combine(temp,"flash-pass-1.bin"),image147);File.WriteAllBytes(Path.Combine(temp,"flash-pass-2.bin"),image147);
+            var backup147=new BackupRecord { CreatedUtc=DateTime.UtcNow.ToString("O"),DiskPnpId="synthetic-disk",UsbId="synthetic-usb",Sha256=Bytes.Hash(image147),Product="JS_3103_DG",Version="1.47",TwoPassMatch=true };
+            string manifest147=Path.Combine(temp,"manifest-147.json");backup147.Save(manifest147);Check(BackupRecord.Load(manifest147).Version=="1.47","Resume a verified two-pass firmware 1.47 backup");
             if(args.Length==2)
             {
                 byte[] original=FirmwarePackage.ReadOfficial(args[0]);byte[] built=FirmwarePackage.Build(original);string output=Path.GetFullPath(args[1]);File.WriteAllBytes(output,built);

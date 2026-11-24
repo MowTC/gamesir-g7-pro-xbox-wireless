@@ -149,7 +149,7 @@ namespace G7ProXboxWireless
             }
             throw new InvalidDataException("Flash header CRC is invalid or the firmware layout is unsupported.");
         }
-        internal void RequireStock() { Bytes.Require(Base==0x1000 && Product=="JS_3103_DG" && Version=="1.46","This release supports the tested standard JS_3103_DG firmware 1.46 only. Your image is backed up, but conversion is blocked."); }
+        internal void RequireStock() { Bytes.Require(Base==0x1000 && Product=="JS_3103_DG" && (Version=="1.46" || Version=="1.47"),"This release supports standard JS_3103_DG firmware 1.46 or 1.47 only. Your image is backed up, but conversion is blocked."); }
     }
 
     [DataContract] internal sealed class BackupRecord

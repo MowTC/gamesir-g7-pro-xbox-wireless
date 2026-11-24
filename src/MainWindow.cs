@@ -16,8 +16,8 @@ using Microsoft.Win32;
 
 [assembly: AssemblyTitle("G7 Pro Xbox Wireless")]
 [assembly: AssemblyDescription("Independent community firmware conversion assistant for supported GameSir G7 Pro receivers")]
-[assembly: AssemblyVersion("0.1.1.0")]
-[assembly: AssemblyFileVersion("0.1.1.0")]
+[assembly: AssemblyVersion("0.1.2.0")]
+[assembly: AssemblyFileVersion("0.1.2.0")]
 
 namespace G7ProXboxWireless
 {

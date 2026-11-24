@@ -2,11 +2,11 @@
 
 A separate, open-source Windows app that helps convert a **supported standard GameSir G7 Pro receiver** using the official **Wuchang dongle 5.12 firmware**. This is independent community software, not a GameSir or Microsoft product.
 
-**Hardware result:** one standard receiver on firmware **1.46** was backed up, converted to Wuchang **5.12**, and tested successfully for wireless input on **Xbox Series S**. The standard controller reconnected after a receiver cold boot; **its firmware was not changed**. Other receiver revisions, Xbox models, audio features, and long-term compatibility are unverified.
+**Hardware results:** the original standard receiver on firmware **1.46** was converted to Wuchang **5.12** and tested successfully for wireless input on **Xbox Series S**. Community tester **[baptisteba](https://github.com/baptisteba)** reports a successful **1.47 → 5.12** conversion on **Xbox Series X**, including reconnection after power-cycling the controller and console. Both tests used an **unchanged standard controller firmware**. Thank you, baptisteba, for the detailed [hardware report in issue #1](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/issues/1). Other receiver versions, Xbox models, audio features, and long-term compatibility are unverified.
 
-**[Download v0.1.1 for Windows x64](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/releases/download/v0.1.1/G7ProXboxWireless-0.1.1-win-x64.zip)** · [Releases and checksums](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/releases/tag/v0.1.1) · [How the conversion works](docs/PROTOCOL.md)
+**[Download v0.1.2 for Windows x64](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/releases/download/v0.1.2/G7ProXboxWireless-0.1.2-win-x64.zip)** · [Releases and checksums](https://github.com/MowTC/gamesir-g7-pro-xbox-wireless/releases/tag/v0.1.2) · [How the conversion works](docs/PROTOCOL.md)
 
-This is a **preview**. The conversion method was tested on real hardware using the research implementation. The packaged app has automated tests and offline verification against the actual vendor package; a full conversion through this new interface has not been repeated on a stock receiver. Firmware conversion can make a receiver unusable. The required backup captures SPI flash, but restoration has not been tested and no restore operation is included.
+This is a **preview**. The original 1.46 hardware test used the research implementation. baptisteba's 1.47 report used the v0.1.1 app built from source with the stock-version check extended to accept 1.47; they report the complete backup, replug, and conversion workflow succeeded. This release includes that explicit version-list expansion and additional regression tests. The community hardware result has not been independently repeated by the maintainer. Firmware conversion can make a receiver unusable. The required backup captures SPI flash, but restoration has not been tested and no restore operation is included.
 
 ## Supported configuration
 
@@ -15,7 +15,7 @@ This is a **preview**. The conversion method was tested on real hardware using t
 | Host | Windows 10/11 x64, .NET Framework 4.8 |
 | Receiver update mode | USB `4C4A:2342`, BR23 `UBOOT1.00` |
 | Flash | 512 KiB SPI NOR, JEDEC `856013` |
-| Original receiver firmware | `JS_3103_DG`, **1.46**, validated flash header at `0x1000` |
+| Original receiver firmware | `JS_3103_DG`, **1.46 or 1.47**, validated flash header at `0x1000` |
 | Conversion package | Original Wuchang **dongle 5.12 PID Protected** updater, exact SHA-256 below |
 | Controller | Existing standard G7 Pro, already paired wirelessly; no controller firmware change |
 
@@ -59,7 +59,7 @@ On Windows x64 with .NET Framework 4.8:
 powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -Package
 ```
 
-No NuGet packages, Python runtime, vendor firmware, or network access are needed to build. The build runs **40 offline checks** for CRCs, container integrity, bounds, flash-command rejection, stock-firmware identification, and backup verification. `bin/` contains the app and test executable; `dist/` contains the portable app ZIP, source ZIP, and checksums. `G7ProXboxWireless.csproj` also supports MSBuild with the .NET Framework 4.8 targeting pack.
+No NuGet packages, Python runtime, vendor firmware, or network access are needed to build. The build runs **44 offline checks** for CRCs, container integrity, bounds, flash-command rejection, stock-firmware identification, and backup verification. These include acceptance of 1.47, rejection of untested 1.53 and a different product on 1.47, and resuming a verified 1.47 backup. `bin/` contains the app and test executable; `dist/` contains the portable app ZIP, source ZIP, and checksums. `G7ProXboxWireless.csproj` also supports MSBuild with the .NET Framework 4.8 targeting pack.
 
 For the optional real-package offline integration check, supply a legally obtained original updater and an output file **outside the repository**:
 
